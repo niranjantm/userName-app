@@ -1,82 +1,85 @@
-import React, { useState } from "react";
-import Card from "../UI/Card"
-import classes from "./AddUser.module.css"
+import React, { useState ,useRef} from "react";
+import Card from "../UI/Card";
+import classes from "./AddUser.module.css";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 
 
-export default function AddUser(props){
+export default function AddUser(props) {
+  
+  
 
-    const [userName,setUserName] = useState("")
-    const [userAge,setUserAge] = useState("")
-    const [isValidName,setValidName] = useState(true)
-    const [isValidAge,setValidAge] = useState(true)
-    const [error,setError] = useState()
+  const [error, setError] = useState();
+  const enteredName =useRef();
+  const enteredAge =useRef();
+
+
+  
+ 
+  const dismissHandler = () => {
+    setError(false);
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    if (enteredName.current.value.trim() === "" || enteredAge.current.value.trim() === "") {
+     
+      setError({
+        title: "Invalid input",
+        message: "Add valid User Name and Age",
+      });
+
+      return;
+    } 
+    props.onUserAdd({
+      name: enteredName.current.value,
+      age: enteredAge.current.value,
+      id: Math.random(),
+    });
+    enteredAge.current.value=""
+    enteredName.current.value=""
+
     
-
-    const nameHandler = (event)=>{
-        setUserName(event.target.value)
-        setValidName(true)
-       
-    }
-    const ageHandler = (event)=>{
-        setUserAge(event.target.value)
-        setValidAge(true)
-       
-    }
-    const dismissHandler = ()=>{
-        setError(false);
-    }
-
-    
-
-    const submitHandler=(event)=>{
-        event.preventDefault();
-        if(userName.trim()==="" || userAge.trim() ===""){
-            setValidName(false);
-            setValidAge(false);
-            setError({
-                title:"Invalid input",
-                message:"Add valid User Name and Age"
-            })
-            
-            return
-        }
-
-        else if(userName.trim()===""){
-            setValidName(false)
-           
-            return
-        }
-        else if(userAge.trim()===""){
-            setValidAge(false)
-            return
-        }
-         props.onUserAdd( {
-            name:userName,
-            age:userAge,
-            id:Math.random()
-           
-        })
-        setUserName("");
-        setUserAge("")
-
-    }
-    return(
+  };
+  return (
+    <React.Fragment>
+      {error ? (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          type="button"
+          children="Okay"
+          ondismiss={dismissHandler}
+        ></ErrorModal>
+      ) : (
+        ""
+      )}
+      <Card className={classes.input}>
         <div>
-        {error?<ErrorModal title ={error.title} message ={error.message}  type = "button" children = "Okay" ondismiss = {dismissHandler}></ErrorModal>:""}
-        <Card className={classes.input}>
-        <div>
-            <form onSubmit={submitHandler}>
+          <form onSubmit={submitHandler}>
             <label htmlFor="userName">User Name</label>
-            <input id = "userName" className={isValidName?classes.valid:classes.inValid} type = "text" onChange={nameHandler}value = {userName} ></input>
+            <input
+              id="userName"
+             
+              type="text"
+             
+              ref={enteredName}
+            ></input>
             <label htmlFor="userAge">User Age</label>
-            <input id = "userAge" className={isValidAge?classes.valid:classes.inValid} type="number" min="0" onChange={ageHandler} value = {userAge}></input>
-            <Button type ="submit"  className="button">Add User</Button>
-            </form>
+            <input
+              id="userAge"
+             
+              type="number"
+              min="0"
+             
+              ref={enteredAge}
+            ></input>
+            <Button type="submit" className="button">
+              Add User
+            </Button>
+          </form>
         </div>
-        </Card>
-       
-        </div>
-    )
+      </Card>
+    </React.Fragment>
+  );
 }

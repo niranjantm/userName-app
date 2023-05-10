@@ -1,14 +1,13 @@
 import Card from "./Card";
 import classes from "./ErrorModal.module.css";
 import Button from "./Button";
+import ReactDOM from "react-dom";
 import React from "react";
-import ReactDOM from "react-dom"
 export default function ErrorModal(props) {
   const Backdrop = (props) => {
     return <div className={classes.backdrop} onClick={props.ondismiss}></div>;
   };
-
-  const OverLay = (props) => {
+  const OverLay = () => {
     return (
       <Card className={classes.modal}>
         <header className={classes.header}>
@@ -26,8 +25,21 @@ export default function ErrorModal(props) {
     );
   };
 
-  return (<React.Fragment>
-    {ReactDOM.createPortal((<Backdrop ondismiss={props.ondismiss} ></Backdrop>),document.getElementById('backDrop'))}
-    { ReactDOM.createPortal((<OverLay ondismiss={props.ondismiss} title={props.title} message={props.message} children={props.children}type={props.type} ></OverLay>),document.getElementById('overLay'))}
-  </React.Fragment>);
+  return (
+    <React.Fragment>
+      {ReactDOM.createPortal(
+        <Backdrop ondismiss={props.ondismiss}></Backdrop>,
+        document.getElementById("backDrop")
+      )}
+      {ReactDOM.createPortal(
+        <OverLay
+          title={props.title}
+          message={props.message}
+          type={props.type}
+          children={props.children}
+          ondismiss={props.ondismiss}
+        ></OverLay>,(document.getElementById("overLay"))
+      )}
+    </React.Fragment>
+  );
 }
