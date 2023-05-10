@@ -24,3 +24,9 @@
     outline: none;
     border-color: #4f005f;
   }
+  .inValid{
+    background: red;
+  }
+  .valid{
+    background:transparent;
+  }
