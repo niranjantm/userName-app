@@ -1,9 +1,10 @@
-import React, {  useEffect, useReducer ,useContext} from "react";
+import React, { useEffect, useReducer, useContext,useRef } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
 import AuthContext from "../../Auth-context";
+import Input from "../UI/Input/Input";
 
 const Reducer = (state, action) => {
   if (action.type === "emailInput") {
@@ -12,43 +13,49 @@ const Reducer = (state, action) => {
       emailValid: action.val.includes("@"),
       passwordEntered: state.passwordEntered,
       passwordValid: state.passwordValid,
-      formValid: state.formValid
-       };
+      formValid: state.formValid,
+    };
   }
-  if (action.type ==="passwordInput"){
-    return(
-      {passwordEntered: action.val,
-      passwordValid: action.val.trim().length>7,
+  if (action.type === "passwordInput") {
+    return {
+      passwordEntered: action.val,
+      passwordValid: action.val.trim().length > 7,
       enteredEmail: state.enteredEmail,
-       emailValid: state.emailValid,
-       formValid: state.formValid }
-   
-    )
-  }
-  else if(action.type ==="emailBlur"){
-    return ({ enteredEmail: state.enteredEmail, emailValid: false ,
+      emailValid: state.emailValid,
+      formValid: state.formValid,
+    };
+  } else if (action.type === "emailBlur") {
+    return {
+      enteredEmail: state.enteredEmail,
+      emailValid: false,
       passwordEntered: state.passwordEntered,
       passwordValid: state.passwordValid,
-      formValid: state.formValid});
-  }
-  else if(action.type ==="passBlur"){
-    return ({ enteredEmail: state.enteredEmail, emailValid: state.emailValid ,
+      formValid: state.formValid,
+    };
+  } else if (action.type === "passBlur") {
+    return {
+      enteredEmail: state.enteredEmail,
+      emailValid: state.emailValid,
       passwordEntered: state.passwordEntered,
       passwordValid: false,
-      formValid: state.formValid});
-  }
-  else if(action.type ==="formSubmit"){
-    return({ enteredEmail: state.enteredEmail, emailValid: state.emailValid ,
+      formValid: state.formValid,
+    };
+  } else if (action.type === "formSubmit") {
+    return {
+      enteredEmail: state.enteredEmail,
+      emailValid: state.emailValid,
       passwordEntered: state.passwordEntered,
       passwordValid: state.passwordValid,
-      formValid: state.passwordValid && state.emailValid}
-
-    )
+      formValid: state.passwordValid && state.emailValid,
+    };
   }
-  return { enteredEmail: state.enteredEmail, emailValid: state.emailValid ,
+  return {
+    enteredEmail: state.enteredEmail,
+    emailValid: state.emailValid,
     passwordEntered: state.passwordEntered,
     passwordValid: state.passwordValid,
-    formValid: state.formValid};
+    formValid: state.formValid,
+  };
 };
 
 const Login = (props) => {
@@ -63,17 +70,17 @@ const Login = (props) => {
     emailValid: null,
     passwordEntered: "",
     passwordValid: null,
-    formValid:null
+    formValid: null,
   });
 
   const emailChangeHandler = (event) => {
     disspatchEmail({ type: "emailInput", val: event.target.value });
   };
- 
+
   useEffect(() => {
     const timeHandler = setTimeout(() => {
       console.log("checking  validity");
-      disspatchEmail({type:"formSubmit"})
+      disspatchEmail({ type: "formSubmit" });
     }, 1000);
 
     return () => {
@@ -83,58 +90,93 @@ const Login = (props) => {
   }, [input.emailValid, input.passwordValid]);
 
   const passwordChangeHandler = (event) => {
-    disspatchEmail({type:"passwordInput",val:event.target.value});
+    disspatchEmail({ type: "passwordInput", val: event.target.value });
   };
 
-  const validateEmailHandler = ()=>{
-    if(!input.emailValid)
-    disspatchEmail({type:"emailBlur"})
-  }
-  const validatePasswordHandler=()=>{
-    if(!input.passwordValid)
-    disspatchEmail({type:"passBlur"})
-  }
+  const validateEmailHandler = () => {
+    if (!input.emailValid) disspatchEmail({ type: "emailBlur" });
+  };
+  const validatePasswordHandler = () => {
+    if (!input.passwordValid) disspatchEmail({ type: "passBlur" });
+  };
 
-  
+  const emailRef = useRef();
+  const passRef = useRef();
 
   const submitHandler = (event) => {
     event.preventDefault();
+    if(input.formValid){
     ctx.onLogin(input.enteredEmail, input.passwordEntered);
+  }
+    else if  (!input.emailValid){
+      emailRef.current.focus()
+    }
+    else if  (!input.passwordValid){
+      passRef.current.focus()
+    }
   };
 
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
-        <div
+        <Input
+        ref  ={emailRef}
           className={`${classes.control} ${
             input.emailValid === false ? classes.invalid : ""
           }`}
-        >
-          <label htmlFor="input">E-Mail</label>
+          children = "Email"
+          htmlFor="email"
+          id="email"
+          value={input.enteredEmail}
+          onChange={emailChangeHandler}
+          onBlur={validateEmailHandler}
+        ></Input>
+         <Input
+         ref = {passRef}
+          className={`${classes.control} ${
+            input.passwordValid === false ? classes.invalid : ""
+          }`}
+          children = "password"
+          htmlFor="password"
+          id="password"
+          value={input.passwordEntered}
+          onChange={passwordChangeHandler}
+          onBlur={validatePasswordHandler}
+        ></Input>
+        {/* <div
+          className={`${classes.control} ${
+            input.emailValid === false ? classes.invalid : ""
+          }`}
+        > */}
+        {/* <label htmlFor="input">E-Mail</label>
           <input
             type="input"
             id="input"
             value={input.enteredEmail}
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
-          />
-        </div>
-        <div
+          /> */}
+        {/* </div> */}
+        {/* <div
           className={`${classes.control} ${
             input.passwordValid === false ? classes.invalid : ""
           }`}
-        >
-          <label htmlFor="password">Password</label>
+        > */}
+        {/* <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
             value={input.passwordEntered}
             onChange={passwordChangeHandler}
             onBlur={validatePasswordHandler}
-          />
-        </div>
+          /> */}
+        {/* </div> */}
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!input.formValid}>
+          <Button
+            type="submit"
+            className={classes.btn}
+            // disabled={!input.formValid}
+          >
             Login
           </Button>
         </div>
