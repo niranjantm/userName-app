@@ -4,12 +4,12 @@ import classes from "./Header.module.css";
 import HeaderCartButton from "./HeaderCartButton";
 // import BTclasses from "../UI/Button.module.css"
 
-export default function Header(){
+export default function Header(props){
     return(
         <Fragment>
             <header className= {classes.header}>
             <h1>Good Meals</h1>
-           <HeaderCartButton></HeaderCartButton>
+           <HeaderCartButton onClick = {props.onShown}></HeaderCartButton>
             </header>
            
             <div className= {classes["main-image"]}>

@@ -1,8 +1,8 @@
 import classes from "./HeaderCartButton.module.css"
-import CartIcon from "../../Assests/CartIcon"
-const HeaderCartButton = ()=>{
+import CartIcon from "../Cart/CartIcon"
+const HeaderCartButton = (porps)=>{
     return(
-       <button className={classes.button}>
+       <button className={classes.button} onClick={porps.onClick}>
         <span className={classes.icon}>
             <CartIcon></CartIcon>
         </span>

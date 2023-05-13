@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 85%;
+    width: 88%;
     height: 5rem;
     background-color: #8a2b06;
     color: white;
@@ -27,3 +27,4 @@
     object-fit: cover;
     transform: rotateZ(-5deg) translateY(-4rem) translateX(-1rem);
   }
+  
