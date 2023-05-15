@@ -8,6 +8,9 @@ import InputContext from "./Components/Store/inputContext"
 const defaultState = []
 
 const reducer=(state,action)=>{
+  let addNewList=[];
+let removeNewList=[];
+let flag=false;
   if(action.type ==="ADD"){
 
 
@@ -24,19 +27,66 @@ const reducer=(state,action)=>{
       ...state[index],
       amount:state[index].amount+action.item.amount
     }
-    let updatedList;
+ 
     if(updatedObj){
-      updatedList = [...state];
-      updatedList[index] = updatedObj;
-      return(updatedList)
+      addNewList = [...state];
+      addNewList[index] = updatedObj;
+      return(addNewList)
     }
   }
     
       return([...state,action.item])
-    
+  }
+  else if (action.type==="REMOVE"){
+   
+    let itemIndex = 0;
+  
+    state.forEach((item)=>{
+      
+      if(item.id===action.itemId){
+        if(item.amount=== 1){
 
+          console.log("inside 1")
+          removeNewList = state.filter((item1)=>{
+            return(item1.id!=item.id)
+          })
+      
+          flag=!flag
+          
+        }
+        else{
+       
+          let newObj  ={...state[itemIndex],amount:state[itemIndex].amount-1};
+        removeNewList = [...state];
+        removeNewList[itemIndex]=newObj;
+        console.log(removeNewList)
+        console.log(state)
+       
+     
+      }}
+
+      itemIndex++
+      
+    })
+  }
+
+ if(flag==true){
+  return (removeNewList)
+ }
+
+  else if (removeNewList.length>0)
+  {
+    return (removeNewList)
+  }
+
+
+  else if(addNewList.length>0)
+  {
+    return(addNewList )
   }
   return(state)
+
+
 }
 
 
@@ -58,13 +108,16 @@ function App() {
   const AddItemHandler=(item)=>{
     dispatchAction({type:"ADD",item:item})
   }
+  const removeItemHandler=(id) =>{
+    dispatchAction({type:"REMOVE",itemId:id})
+  }
 
 
 
  
   return (
   <InputContext.Provider value={{cartItems:cartItems,
-  onaddItem:AddItemHandler}}>
+  onaddItem:AddItemHandler,onItemRemove:removeItemHandler}}>
     <Header onShown = {cartShownHandler}></Header>
     { cartShown && <Cart onClose = {cartCloseHandler}></Cart>}
     <Meals></Meals>

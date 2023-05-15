@@ -6,13 +6,20 @@ import InputContext from "../Store/inputContext";
 export default function Cart(props) {
   const ctx = useContext(InputContext);
 
+  const removeSingleItemHandler=(event)=>{
+    event.preventDefault();
+    ctx.onItemRemove(event.target.value)
+    console.log(event.target.value)
+
+  }
+
   const cartItems = ctx.cartItems.map((item) => {
     return (
       <li className={classes.item}>
         <span><h1>{item.name}</h1></span>
         <span><h1>{item.amount}</h1></span>
-        <span><h1>{item.price*item.amount}</h1></span>
-        <button >remove</button>
+        <span><h1>{`$${(item.price*item.amount).toFixed(2)}`}</h1></span>
+        <button onClick={removeSingleItemHandler} value={item.id}>-</button>
       </li>
     );
   });
@@ -24,7 +31,7 @@ export default function Cart(props) {
 
 
       <div className={classes.total}>
-        <span>Total</span>
+        <span>{ctx.cartItems.length==0?"Your Cart Is Empty":"Total"}</span>
         <span>
           {(ctx.cartItems.reduce((intial, item) => {
             return Number(item.price) * Number(item.amount) + intial;
