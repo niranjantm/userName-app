@@ -18,6 +18,12 @@
   .actions {
     text-align: right;
   }
+
+  .item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   
   .actions button {
     font: inherit;
