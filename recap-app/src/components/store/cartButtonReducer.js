@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { isButtonValid: false, cartItems: []};
+const initialState = { isButtonValid: false, cartItems:[]};
 
 
 const cartSlice = createSlice({
@@ -14,16 +14,21 @@ const cartSlice = createSlice({
 
     addToCartHandler(state, action) {
       // state.cartQuantity++ ;
-      console.log(state);
-      console.log(action.payload);
-      console.log(state.cartItems);
-
-      state.cartItems = [...state.cartItems,action.payload];
+    //   console.log(state);
+    //   console.log(action.payload);
+      const index = state.cartItems.findIndex((item)=>item.id===action.payload.id);
+      if(index>=0){
+        state.cartItems[index].quantity++;
+      }
+        else{ state.cartItems = [...state.cartItems,action.payload];
+            console.log(state.cartItems);}
+     
       // console.log(state.cartItems[0])
       },
       itemAddHandler(state,action){
         const index = state.cartItems.findIndex((item)=>item.id ===action.payload);
         state.cartItems[index].quantity++;
+        
       },
       itemRemove(state,action){
         const index = state.cartItems.findIndex((item)=>item.id===action.payload);

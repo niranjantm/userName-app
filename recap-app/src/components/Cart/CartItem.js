@@ -5,7 +5,9 @@ import { cartAction } from '../store/cartButtonReducer';
 const CartItem = (props) => {
   const { title, quantity, price ,id} = props.item;
   console.log(props.item)
-  console.log()
+  console.log(price)
+  
+  
   const dispatch = useDispatch();
 
   const addHandler = ()=>{
