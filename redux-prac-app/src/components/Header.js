@@ -1,6 +1,6 @@
 import classes from './Header.module.css';
 import { useSelector,useDispatch } from 'react-redux';
-import { authActions } from './store';
+import { authActions } from '../components/store/AuthReducer';
 
 const Header = () => {
   const isLogOut = useSelector(state=>{return(state.auth.isLogOut)})
