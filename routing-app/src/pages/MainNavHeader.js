@@ -10,9 +10,10 @@ export default function MainNavHeader() {
             <h4>
               <NavLink
                 to={"/"}
-                className={({isActive}) => {return( isActive?classes.active:'')
-                 
-                }} end
+                className={({ isActive }) => {
+                  return isActive ? classes.active : "";
+                }}
+                end
               >
                 Link to Home
               </NavLink>
@@ -20,9 +21,15 @@ export default function MainNavHeader() {
           </li>
           <li>
             <h4>
-              <NavLink to={"/products"}  className={({isActive}) => {return( isActive?classes.active:'')
-                 
-                }}> Link to Products Page</NavLink>
+              <NavLink
+                to={"/products"}
+                className={({ isActive }) => {
+                  return isActive ? classes.active : "";
+                }}
+              >
+                {" "}
+                Link to Products Page
+              </NavLink>
             </h4>
           </li>
         </ul>

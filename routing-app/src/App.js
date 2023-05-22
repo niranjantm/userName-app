@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import Product from "./pages/Products";
 import RouteLayout from "./pages/RouteLayout";
 import ErrorElement from "./pages/ErrorPage";
+import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   // const routeDefination = createRoutesFromElements(
@@ -18,8 +19,9 @@ function App() {
       element: <RouteLayout></RouteLayout>,
       errorElement:<ErrorElement></ErrorElement>,
       children: [
-        { path: "/", element: <HomePage></HomePage> },
-        { path: "/products", element: <Product></Product> },
+        { index:true, element: <HomePage></HomePage> },
+        { path: "products", element: <Product></Product> },
+        { path: "products/:productId", element: <ProductDetail></ProductDetail> },
       ],
     },
   ]);

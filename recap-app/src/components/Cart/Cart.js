@@ -15,7 +15,7 @@ const Cart = (props) => {
         />)})}
 
       </ul>
-      <span className={classes.cartTotal}><h2 >Cart Total </h2></span><span className={classes.cartTotal}><h2>{cartItems.reduce((initial,item)=>{return(initial+(item.quantity*item.price))},0)}</h2></span>
+      <span ><h2 className={classes.cartTotal} >Cart Total </h2></span><span ><h2 className={classes.cartTotal}>${cartItems.reduce((initial,item)=>{return(initial+(item.quantity*item.price))},0)}</h2></span>
     </Card>
   );
 };

@@ -25,3 +25,22 @@
     margin:2rem;
     text-align:center;
   }
+  .productsList{
+    color: rgb(0, 7, 7);
+    margin:2rem;
+    width: 50%;
+    background-color: aliceblue;
+    border-radius: 5px;
+    text-align: center;
+    
+  }
+  .product a{
+    color: rgb(167, 175, 96);
+  }
+  .container{
+    
+    
+    display:flex;
+    justify-content:center;
+    align-items: center;
+  }
