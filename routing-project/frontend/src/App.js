@@ -19,9 +19,39 @@
 //    Every list item should include a link to the respective EventDetailPage
 // 7. Output the ID of the selected event on the EventDetailPage
 // BONUS: Add another (nested) layout route that adds the <EventNavigation> component above all /events... page components
+import {createBrowserRouter,RouterProvider} from "react-router-dom"
+import RoutingPage from "./components/pages/Root";
+import HomePage from "./components/pages/HomePage";
+import EventsPage from "./components/pages/EventsPage";
+import EventDetailPage from "./components/pages/EventDetailPage";
+import NewEventPage from "./components/pages/NewEventPage";
+import EventRoot from "./components/pages/EventRoot";
+import EditEventPage from "./components/pages/EditEventPage";
+import {loader as eventLoader} from "./components/pages/EventsPage"
+import ErrorPage from "./components/pages/ErrorPage";
 
 function App() {
-  return <div></div>;
+
+  const router = createBrowserRouter([
+  {
+    path:"/",element:<RoutingPage></RoutingPage>,
+    errorElement:<ErrorPage></ErrorPage>,
+  children:[
+    {path:"",element:<HomePage></HomePage>},
+    {path:"events",element:<EventRoot></EventRoot>,children:[
+      {path:"",element:<EventsPage></EventsPage>,loader: eventLoader},
+  {path:"new",element:<NewEventPage></NewEventPage>},
+  {path:":id",element:<EventDetailPage></EventDetailPage>},
+  {path:":id/editEvent",element:<EditEventPage></EditEventPage>}
+    ]},
+  
+]
+},
+
+  ]);
+  return (
+    <RouterProvider router={router}></RouterProvider>
+  );
 }
 
 export default App;
