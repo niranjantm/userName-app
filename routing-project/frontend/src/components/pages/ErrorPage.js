@@ -10,7 +10,7 @@ export default function ErrorPage(){
     let message = "Something went wrong"
 
     if(error.status===500){
-        message = JSON.parse(error.data).message
+        message = (error.data).message
     }
     if(error.status===404){
         title="Not Found"
@@ -18,7 +18,7 @@ export default function ErrorPage(){
     }
 
     return(
-        <PageContent title={error.status}> <p>{message}</p></PageContent>
+        <PageContent title={`${title} error code: ${error.status}`}> <p>{message}</p></PageContent>
        
     )
 }

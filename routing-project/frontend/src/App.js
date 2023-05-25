@@ -23,10 +23,11 @@ import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import RoutingPage from "./components/pages/Root";
 import HomePage from "./components/pages/HomePage";
 import EventsPage from "./components/pages/EventsPage";
-import EventDetailPage from "./components/pages/EventDetailPage";
-import NewEventPage from "./components/pages/NewEventPage";
+import EventDetailPage ,{loader as EventDetailLoader,action as deleteAction}from "./components/pages/EventDetailPage";
+import NewEventPage, {action as newEventAction }from "./components/pages/NewEventPage";
 import EventRoot from "./components/pages/EventRoot";
 import EditEventPage from "./components/pages/EditEventPage";
+import {action as addAction } from "../src/components/EventForm"
 import {loader as eventLoader} from "./components/pages/EventsPage"
 import ErrorPage from "./components/pages/ErrorPage";
 
@@ -37,12 +38,18 @@ function App() {
     path:"/",element:<RoutingPage></RoutingPage>,
     errorElement:<ErrorPage></ErrorPage>,
   children:[
-    {path:"",element:<HomePage></HomePage>},
-    {path:"events",element:<EventRoot></EventRoot>,children:[
-      {path:"",element:<EventsPage></EventsPage>,loader: eventLoader},
-  {path:"new",element:<NewEventPage></NewEventPage>},
-  {path:":id",element:<EventDetailPage></EventDetailPage>},
-  {path:":id/editEvent",element:<EditEventPage></EditEventPage>}
+    {index:true,element:<HomePage></HomePage>},
+    {path:"events",element:<EventRoot></EventRoot>,children:
+    [
+      {index:true,element:<EventsPage></EventsPage>,loader: eventLoader},
+      {path:"new",element:<NewEventPage></NewEventPage>,action:addAction},
+
+  {path:":id",id:"edit-event",loader:EventDetailLoader,children:
+  [
+    {index:true,element:<EventDetailPage></EventDetailPage>,action:deleteAction},
+    {path:"edit",element:<EditEventPage></EditEventPage>,action:addAction}
+  ]}
+ 
     ]},
   
 ]

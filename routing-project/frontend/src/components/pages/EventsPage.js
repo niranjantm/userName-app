@@ -1,5 +1,5 @@
 import { Fragment } from "react"
-import {Link,useLoaderData} from "react-router-dom"
+import {Link,useLoaderData,json} from "react-router-dom"
 import EventsList from "../EventsList";
 
 
@@ -50,7 +50,8 @@ export async function loader (){
     const response = await fetch("http://localhost:8080/events")
     if (!response.ok) {
         // return({isError:true,message:"Some thing went Wrong"})
-        throw new Response(JSON.stringify({message:"Some thing went wrong"}),{status:500})
+        // throw new Response(JSON.stringify({message:"Some thing went wrong"}),{status:500})
+        throw json({message:"Some thing went wrong"},{status:500})
     }
     // } else {
     //   const resData = await response.json();
