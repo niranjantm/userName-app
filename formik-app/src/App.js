@@ -1,7 +1,15 @@
 import { useFormik } from "formik";
 import React from "react";
+import * as YUP from "yup";
 
 function App() {
+  const validationSchema = YUP.object({
+    deckName:YUP.string().required("Required!"),
+    deckDescription:YUP.string().required("Reqiuired!"),
+    email:YUP.string().email("Invalid email").required("Email required")
+
+  })
+
   const formik = useFormik({
     initialValues: {
       deckName: "",
@@ -11,28 +19,30 @@ function App() {
     onSubmit: (values) => {
       console.log(values);
     },
-    validate:(values)=>{
-      let error = {};
-      if(!values.deckName){
-        error.name="Name required"
-      }
-      if(!values.deckDescription){
-        error.description="description required"
-      }
-      if(!values.email){
-        error.email="Email required"
-      }
-      if(values.email){
-        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i.test(values.email))
-  {
-        error.email="Enter valid email"
-  }
-      }
+    validationSchema
+  //   validate:(values)=>{
+  //     let error = {};
+  //     if(!values.deckName){
+  //       error.name="Name required"
+  //     }
+  //     if(!values.deckDescription){
+  //       error.description="description required"
+  //     }
+  //     if(!values.email){
+  //       error.email="Email required"
+  //     }
+  //     if(values.email){
+  //       if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i.test(values.email))
+  // {
+  //       error.email="Enter valid email"
+  // }
+  //     }
       
-      return error
+  //     return error
       
-    }
+  //   }
   });
+  
     console.log(formik.errors)
     console.log(formik.touched)
   return (
@@ -45,11 +55,12 @@ function App() {
           type="text"
           name="deckName"
         
-          onChange={formik.handleChange}
-          value={formik.values.deckName}
-          onBlur={formik.handleBlur}
+          // onChange={formik.handleChange}
+          // value={formik.values.deckName}
+          // onBlur={formik.handleBlur}
+          {...formik.getFieldProps("deckName")}
         ></input>
-        {(formik.touched.deckName && formik.errors.name)?<p style={{color:"red"}}>{formik.errors.name}</p>:""}
+        {(formik.touched.deckName && formik.errors.deckName)?<p style={{color:"red"}}>{formik.errors.deckName}</p>:""}
         </div>
         <div>
         <label htmlFor="deckDescription">Add description</label>
@@ -57,11 +68,12 @@ function App() {
           id="deckDescription"
           type="text"
           name="deckDescription"
-          onChange={formik.handleChange}
-          value={formik.values.deckDescription}
-          onBlur={formik.handleBlur}
+          // onChange={formik.handleChange}
+          // value={formik.values.deckDescription}
+          // onBlur={formik.handleBlur}
+          {...formik.getFieldProps("deckDescription")}
         ></input>
-        {(formik.touched.deckDescription && formik.errors.description)?<p style={{color:"red"}}>{formik.errors.description}</p>:""}
+        {(formik.touched.deckDescription && formik.errors.deckDescription)?<p style={{color:"red"}}>{formik.errors.deckDescription}</p>:""}
         </div>
         <div>
           <label >Enter email</label>

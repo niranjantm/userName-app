@@ -1,25 +1,36 @@
 import {useState,useRef} from "react";
+import {Formik,Form,ErrorMessage,Field} from "formik"
 
 export default function NewCardForm(){
-    const [formData,setFormData] = useState([])
+    
     // const []
-    const term = useRef();
-    const description = useRef();
+    
+    // const description = useRef();
+    const initialValues={
+        name:"",
+        description:"",
+        term:"",
+        termDes:""
+    }
+    const onSubmit=values=>{
+        console.log(values)
+    }
+    
+    
+
    const clickHandler=(event)=>{
-        event.preventDefault();
-        setFormData(preState=>preState.push({term:term.current.value,description:description.current.value}));
-        console.log(formData)
    }
 
     return(
-        <form>
+        <Formik initialValues={initialValues}>
+        <Form>
             <div>
             <label htmlFor="deckName" >Create group*</label>
-            <input id="deckName"type="text" required></input>
+            <Field id="deckName"type="text" required name ="name"></Field>
             <label htmlFor = "deckDescription">Add description</label>
-            <input id="deckDescription" type="text"></input>
-            </div>
-            <div>
+            <Field as="textarea"id="deckDescription" type="text" name="description"></Field>
+            
+            {/* <div>
                 {formData.map(data=>{
                     return(
                         <div>
@@ -31,15 +42,27 @@ export default function NewCardForm(){
             </div>
                     )
                 })}
-            </div>
+            </div> */}
             <div>
-                <label htmlFor="term">Enter Term*</label>
-                <input id="term" type="text" required  ref={term}></input>
-                <label htmlFor="termDescription">Enter Description*</label>
-                <input id="termDescription" type="text" ref={description}></input>
-                <button onClick={clickHandler}>Add more</button>
+                <Field>
+               
+                {(props)=>{
+                    <div>
+                     <label htmlFor="term">Enter Term*</label>
+                    <input id="term" type="text" required name="term"></input>
+                    <label htmlFor="termDescription">Enter Description*</label>
+                    <input as = "textarea"id="termDescription" type="text" name="termDes" ></input>
+                    <button onClick={clickHandler}>Add more</button>
+                    </div>
+                }}
+                
+               
+                </Field>
+            </div>
+            <button>Submit</button>
             </div>
            
-        </form>
+        </Form>
+        </Formik>
     )
-}
+        }
