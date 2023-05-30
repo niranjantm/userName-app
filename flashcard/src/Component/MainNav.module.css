@@ -1,0 +1,13 @@
+.list{
+    display: flex;
+    gap:2rem;
+    background-color: darkgray;
+    padding:1rem;
+    margin: 0%;
+    font-weight: bold;
+}
+.list a.active{
+    color: rgb(255, 0, 0);
+    text-decoration: none;
+   
+}
