@@ -1,0 +1,11 @@
+.cfc{
+    text-align:left;
+    /* border-top: 2rem;
+    border-bottom: 2rem; */
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    margin-left: 15rem;
+    background-color: rgb(246, 231, 214);
+
+}

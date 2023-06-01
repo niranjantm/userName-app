@@ -1,0 +1,18 @@
+.list{
+    display: flex;
+    gap:2rem;
+    background-color: rgb(246, 231, 214);
+    padding:1rem;
+    text-align: left;
+    margin-left: 15rem;
+    font-weight: bold;
+}
+.list a.active{
+    color: rgb(255, 0, 0);
+    text-decoration: none;
+   
+}
+.input{
+    
+    background-color: aliceblue;
+}
