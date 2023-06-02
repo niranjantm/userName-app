@@ -3,15 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const deckSlice = createSlice(
     {
         name:"singleDeck",
-        initialState:{deckName:null,deckDes:null,terms:[]},
+        initialState:[],
         reducers:{
             addDeck(state,action){
-                state.deckName=action.payload.deckName;
-                state.deckDes=action.payload.deckDes;
+                console.log(action.payload)
+                state.push(action.payload)
+
+                console.log("state:--",state)
             },
-            addTerm(state,action){
-                state.terms.push(action.payload);
-            }
            
         }
 
