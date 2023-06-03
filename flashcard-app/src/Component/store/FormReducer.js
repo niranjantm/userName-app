@@ -11,10 +11,12 @@ const deckSlice = createSlice(
 
                 console.log("state:--",state)
             },
+            
            
         }
 
     }
 )
+
 export const deckAction = deckSlice.actions;
 export default deckSlice.reducer;

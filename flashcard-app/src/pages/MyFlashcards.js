@@ -1,20 +1,19 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import FlashcardDetail from './FlashcardDetail'
+import {Link} from "react-router-dom"
+import { displayAction } from '../Component/store/FormReducer2'
 
 function MyFlashcards() {
   const decks = useSelector(state=>state.deck)
-
-  const clickHandler=()=>{
-    console.log("hi")
-    return(
-      
-      <FlashcardDetail></FlashcardDetail>
-    )
-  }
+  const dispatch = useDispatch()
+  
+  
+  
   return (
     <div  className="  grid grid-cols-3">
       {decks.map((deck,index)=>{
+        
         return(
          <div className=" p-24 pt-5 flex flex-wrap items-center">
 <div className='bg-white rounded-md w-72 h-44 mt-10 flex flex-col relative shadow-lg  '>
@@ -27,7 +26,7 @@ function MyFlashcards() {
             <p className='flex flex-wrap'>{deck.deckDes}</p>
             </div>
             <div className='flex justify-center static '>
-            <button className='text-red-600 border border-red-600 absolute bottom-1 p-1 hover:text-white hover:bg-red-600' onClick={clickHandler}>View card</button>
+            <button className='text-red-600 border border-red-600 absolute bottom-1 p-1 hover:text-white hover:bg-red-600'  onClick={()=>{dispatch(displayAction.flashDisplay(index))}}><Link to={"/flashcardDetail"}>view card</Link></button>
             </div>
             
             
