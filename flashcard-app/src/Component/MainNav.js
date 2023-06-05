@@ -12,7 +12,7 @@ function MainNav() {
               <NavLink
                 to="/"
                 className={({ isActive }) => {
-                  return isActive ? "underline" : "";
+                  return isActive ? " text-red-600 underline" : "";
                 }}
                 end
               >
@@ -23,7 +23,7 @@ function MainNav() {
               <NavLink
                 to="/flashcards"
                 className={({ isActive }) => {
-                  return isActive ? "underline": "";
+                  return isActive ? "text-red-600 underline": "";
                 }}
                 
               >

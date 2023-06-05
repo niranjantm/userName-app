@@ -78,17 +78,17 @@ function CreateForm() {
         console.log(values),
         (
           <Form className="flex  flex-col">
-            <div className="bg-white mx-28 flex flex-wrap rounded-md py-16 mt-10 shadow-lg">
-              <ul className="flex flex-wrap flex-col space-x-5">
-                <li className="flex flex-wrap flex-col px-10">
+            <div className="bg-white mx-28 flex  rounded-md py-16 mt-10 shadow-lg">
+              <ul className="flex  flex-col space-x-5">
+                <li className="flex flex-col px-10">
                   <label htmlFor="deckName">Create group</label>
-                  <div className="flex flex-wrap flex-row">
-                    <div className="flex  flex-wrap flex-col">
+                  <div className="flex  flex-row bg-green-400 w-full">
+                    <div className="flex   flex-col bg-red-400 w-3/4">
                       <Field
                         type="text"
                         name="deckName"
                         id="deckName"
-                        className="bg-gray-50 border border-gray-300 rounded-lg w-96 my-3 "
+                        className="bg-gray-50 border border-gray-300 rounded-lg w-full my-3 "
                       ></Field>
 
                       <ErrorMessage
