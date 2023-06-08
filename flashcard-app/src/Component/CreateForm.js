@@ -77,18 +77,18 @@ function CreateForm() {
       {({ values, errors, isSubmitting, setFieldValue }) => (
         console.log(values),
         (
-          <Form className="flex  flex-col">
-            <div className="bg-white mx-28 flex  rounded-md py-16 mt-10 shadow-lg">
-              <ul className="flex  flex-col space-x-5">
-                <li className="flex flex-col px-10">
+          <Form className="flex  flex-col  max-w-[100%]">
+            <div className="bg-white mx-28 flex  rounded-md py-16 mt-10  shadow-lg min-w-[85%]">
+              <ul className="flex  flex-col space-x-5  w-[100%]">
+                <li className="flex flex-col px-10 ">
                   <label htmlFor="deckName">Create group</label>
-                  <div className="flex  flex-row bg-green-400 w-full">
-                    <div className="flex   flex-col bg-red-400 w-3/4">
+                  <div className="flex  flex-row  min-w-[100%] justify-between">
+                    <div className="flex   flex-col  w-[40%]">
                       <Field
                         type="text"
                         name="deckName"
                         id="deckName"
-                        className="bg-gray-50 border border-gray-300 rounded-lg w-full my-3 "
+                        className="bg-gray-50 border border-gray-300 rounded-lg min-w-[50%] my-3 "
                       ></Field>
 
                       <ErrorMessage
@@ -127,7 +127,7 @@ function CreateForm() {
                       <button
                         className={
                           !values.deckImg
-                            ? "text-blue-600 ml-24 border p-4 border-blue-600 hover:text-white hover:bg-blue-600"
+                            ? " hidden sm:inline text-blue-600 ml-24 border p-4 border-blue-600 hover:text-white hover:bg-blue-600"
                             : ""
                         }
                         type="button"
@@ -137,7 +137,7 @@ function CreateForm() {
                         {values.deckImg ? (
                           <PreviewImage
                             file={values.deckImg}
-                            className={"rounded-md w-20 ml-40 "}
+                            className={"rounded-md w-20 ml-40  hidden sm:inline "}
                           ></PreviewImage>
                         ) : (
                           "Upload Image"
@@ -161,6 +161,27 @@ function CreateForm() {
                     component={ErrorComponent}
                   ></ErrorMessage>
                 </li>
+                {
+                      <button
+                        className={
+                          !values.deckImg
+                            ? " sm:hidden text-blue-600 ml-24 border p-4 border-blue-600 hover:text-white hover:bg-blue-600"
+                            : ""
+                        }
+                        type="button"
+                        onClick={() => deckRef.current.click()}
+                      >
+                        {" "}
+                        {values.deckImg ? (
+                          <PreviewImage
+                            file={values.deckImg}
+                            className={"rounded-md w-20 ml-40 sm:hidden  "}
+                          ></PreviewImage>
+                        ) : (
+                          "Upload Image"
+                        )}{" "}
+                      </button>
+                    }
               </ul>
             </div>
 
@@ -185,22 +206,23 @@ function CreateForm() {
                 // const {values} = form;
                 // const {terms,termName,termDes} = values
                 return (
-                  <div className="bg-white flex flex-wrap mx-28 rounded-md py-16 mt-5 shadow-lg">
+                  <div className="bg-white flex flex-col mx-28 rounded-md py-16 mt-5 shadow-lg min-w-[85%]">
                     {values.terms.map((item, index) => {
                       return (
-                        <div key={index}>
-                          <ul className="flex space-x-5 ">
-                            <li className="flex flex-col px-10">
+                        <div key={index} className="relative min-w-[100%]   ">
+                          <ul className="flex flex-col xl:flex-row space-x-5 w-[100%] bg-green-400 justify-between overflow-hidden ">
+                            <li className="flex flex-col px-10   ">
                               <label htmlFor="termName">Enter term</label>
-                              <Field name={`terms[${index}].term`}>
+                              <Field name={`terms[${index}].term`} >
                                 {(props) => {
                                   const { field, form, meta } = props;
                                   console.log(props);
                                   return (
                                     <input
+                                    
                                       type="text"
                                       id="term"
-                                      className="bg-gray-50 border border-gray-300 rounded-lg w-96 my-3"
+                                      className="bg-blue-500 border border-gray-300 rounded-lg  my-3"
                                       {...field}
                                       ref={(element) =>
                                         (focusRef.current[index] = element)
@@ -214,21 +236,21 @@ function CreateForm() {
                                 component={ErrorComponent}
                               ></ErrorMessage>
                             </li>
-                            <li className="flex flex-col px-10">
+                            <li className="flex flex-col px-10 w-[100%] bg-yellow-300 ">
                               <label htmlFor="termDes">Enter defination</label>
                               <Field
                                 as={"textarea"}
                                 type="text"
                                 name={`terms[${index}].definition`}
                                 id="definition"
-                                className="bg-gray-50 border border-gray-300 rounded-lg w-96 my-3"
+                                className="bg-gray-50 border border-gray-300 rounded-lg w-[100%] my-[3%]"
                               ></Field>
                               <ErrorMessage
                                 name={`terms[${index}].definition`}
                                 component={ErrorComponent}
                               ></ErrorMessage>
                             </li>
-                            <li>
+                            <li className=" w-[100%] mx-[20%] bg-pink-500">
                               <input
                                 type="file"
                                 hidden
@@ -303,6 +325,7 @@ function CreateForm() {
                         </div>
                       );
                     })}
+                    <div >
                     <button
                       type="button"
                       className=" px-3 mx-10 rounded-md text-md text-blue-500"
@@ -312,6 +335,8 @@ function CreateForm() {
                     >
                       Add More +
                     </button>
+                    </div>
+                    
                   </div>
                 );
               }}
