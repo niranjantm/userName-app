@@ -23,7 +23,7 @@ function Todo(props) {
         <form onSubmit={submitHandler}>
             <input className='' type='text' name="text" onChange={changeHandler} value={todo}></input>
             <button type="submit">Add</button>
-            <button type="button" onClick={""}>Done</button>
+            
             
         </form>
         

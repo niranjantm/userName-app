@@ -24,12 +24,13 @@ function Todos() {
 
     setTodos((prev) => updatedArray);
   };
+  
 
   return (
     <Fragment>
       <div>Todos</div>
       <Todo addTodo={addTodo}></Todo>
-      <TodoList todos={todos} deleteTodo={deleteTodo}></TodoList>
+      <TodoList todos={todos} deleteTodo={deleteTodo} ></TodoList>
     </Fragment>
   );
 }
