@@ -9,9 +9,8 @@ import {
   Field,
   FieldArray,
   ErrorMessage,
-  useField,
+  useField,} from "formik";
   
-} from "formik";
 import * as YUP from "yup";
 import PreviewImage from "./ImgPreview";
 

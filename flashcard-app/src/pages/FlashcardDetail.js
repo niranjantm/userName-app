@@ -1,6 +1,8 @@
 import React from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import {useState,useRef} from "react"
+
+
 function FlashcardDetail() {
 
 const decks =useSelector(state=>state.deck)
@@ -9,6 +11,7 @@ const [termIndex,setTermIndex] = useState(0);
 const sliderRef = useRef()
 console.log("index:----",index)
 let width = sliderRef.current.clientWidth;
+
   return (
     <div className='bg-red-200  h-[200%]'>
     <div className=''>
