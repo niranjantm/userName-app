@@ -1,5 +1,15 @@
 {
   "dependencies": {
     "formik": "^2.2.9"
-  }
+  },
+  "name": "node-prac-1",
+  "version": "1.0.0",
+  "main": "practice.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
