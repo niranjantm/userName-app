@@ -13,11 +13,11 @@ const product = [];
 router.use(bodyParser.urlencoded({extended:true}))
 router.get("/add-product",(req,res,next)=>{
     
-    res.sendFile(path.join(rootDir,"views","add-product.html"))
+    res.render("add-product",{pageTitle:"add-product",path:"/admin/add-product"})
     
 })
 router.post("/add-product",(req,res,next)=>{
-    product.push(req.body.title);
+    product.push({title:req.body.title});
     console.log(product)
     res.redirect("/")
 })
